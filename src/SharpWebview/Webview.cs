@@ -39,6 +39,26 @@ namespace SharpWebview
         }
 
         /// <summary>
+        /// Creates a new webview object.
+        /// </summary>
+        /// <param name="window">Window handle</param>
+        /// <param name="debug">
+        /// Set to true, to activate a debug view, 
+        /// if the current webview implementation supports it.
+        /// </param>
+        /// <param name="interceptExternalLinks">
+        /// Set to true, top open external links in system browser.
+        /// </param>
+        public Webview(IntPtr window, bool debug = false, bool interceptExternalLinks = false)
+        {
+            _nativeWebview = Bindings.webview_create(debug ? 1 : 0, window);
+            if(interceptExternalLinks)
+            {
+                InterceptExternalLinks();
+            }
+        }
+
+        /// <summary>
         /// Set the title of the webview application window.
         /// </summary>
         /// <param name="title">The new title.</param>
